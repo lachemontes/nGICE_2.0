@@ -19,6 +19,8 @@ conda activate Rohan
 ```bash
 # Install BWA
 conda install bioconda::bwa
+#Install Picard to remove remove PCR duplicates
+conda install bioconda::picard
 # Install BCF
 conda install bioconda::bcftools
 # Install GATK4
