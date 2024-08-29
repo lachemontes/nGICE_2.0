@@ -84,7 +84,7 @@ bwa index ../../Data/Genome/VectorBase-66_CquinquefasciatusJHB2020_Genome_header
 
 input_dir="/proj/snic2022-23-541/Rohan/Data/RNAseq"
 output_dir="/proj/snic2022-23-541/Rohan/Analysis/BWA"
-genome_index="/proj/snic2022-23-541/Rohan/Analysis/BWA/...."
+genome_index="/proj/snic2022-23-541/Rohan/Data/Genome/Index/VectorBase-66_CquinquefasciatusJHB2020_Genome_headers.fasta"
 
 
 # Define sample name
@@ -99,12 +99,12 @@ output="${output_dir}/${sample}.sam"
 
 # Run BWA for Illumina/454/IonTorrent paired-end reads longer than ~70bp:
 
-bwa mem -t 8 "${genome_dir}" "${r1}" -2 "${r2}" > "${output}"
+bwa mem -t 8 "${genome_index}" "${r1}" -2 "${r2}" > "${output}"
 
 ```
 
 ```bash
-  bwa mem -t 8 "${genome_dir}" "${r1}" -2 "${r2}" > "${output}"
+  bwa mem -t 8 "${genome_index}" "${r1}" -2 "${r2}" > "${output}"
 
 ```
 
