@@ -84,7 +84,7 @@ bwa index ../../Data/Genome/VectorBase-66_CquinquefasciatusJHB2020_Genome_header
 
 input_dir="/proj/snic2022-23-541/Rohan/Data/RNAseq"
 output_dir="/proj/snic2022-23-541/Rohan/Analysis/BWA"
-genome_index=""
+genome_index="/proj/snic2022-23-541/Rohan/Analysis/BWA/...."
 
 
 # Define sample name
