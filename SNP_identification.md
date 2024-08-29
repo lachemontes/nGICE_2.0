@@ -143,6 +143,10 @@ samtools sort $output_file -o $sorted_output_file
 # Index the sorted BAM file if needed
 samtools index $sorted_output_file
 
+# statistics about the sorted bam file
+
+samtools flagstat $sorted_output_file
+
 ```
 
 ### MarkDuplicates from Picard to remove PCR duplicates
