@@ -142,6 +142,51 @@ echo "MarkDuplicates completed successfully."
 
 ```
 
+### From Sam to Bam 
+
+
+```bash
+#!/bin/bash
+#SBATCH -A naiss2023-5-461
+#SBATCH -p node
+#SBATCH -t 4-00:00:00
+#SBATCH -J SAMToBAM
+#SBATCH --mail-type=All
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+#SBATCH --array=1-16
+
+# Load necessary modules or set necessary environment variables here if needed
+
+module load bioinfo-tools
+module load samtools/1.9
+
+filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List.txt)
+input_file="${filename}.sam"
+output_file="/proj/naiss2023-23-109/Ticks/Bam/${filename}.bam"
+sorted_output_file="/proj/naiss2023-23-109/Ticks/Bam/${filename}.sorted.bam"
+
+# Convert SAM to BAM
+samtools view -bS $input_file > $output_file
+
+# Sort the BAM file
+samtools sort $output_file -o $sorted_output_file
+
+# Index the sorted BAM file if needed
+samtools index $sorted_output_file
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 # Variant calling
 https://github.com/broadgsa/gatk/blob/master/doc_archive/methods/Calling_variants_in_RNAseq.md
