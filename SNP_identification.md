@@ -1,4 +1,4 @@
-# SNP identification
+# SNP identification molestus vs pipiens 
 
 Path to the the project folder ` /proj/snic2022-23-541/Rohan` in Rackham
 
