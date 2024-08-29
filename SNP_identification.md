@@ -36,7 +36,12 @@ conda install bioconda::vcftools
 
 ```bash
 # remove everthing after the first speace in genome fasta file to make more simple to read
+
+# Save original header in a txt file
 grep -e ">" VectorBase-66_CquinquefasciatusJHB2020_Genome.fasta > Headers_genome.txt
+
+# Remove everything in the header of a fasta after the first space:
+awk '{print $1;next}1' file.fa > output.fa
 ```
 
 
