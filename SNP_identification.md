@@ -140,3 +140,7 @@ echo "MarkDuplicates completed successfully."
 
 
 ```
+
+```
+https://github.com/broadgsa/gatk/blob/master/doc_archive/methods/Calling_variants_in_RNAseq.md
+```
