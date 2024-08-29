@@ -99,7 +99,7 @@ output="${output_dir}/${sample}.sam"
 
 # Run BWA for Illumina/454/IonTorrent paired-end reads longer than ~70bp:
 
-bwa mem -t 8 "${genome_index}" "${r1}" -2 "${r2}" > "${output}"
+bwa mem "${genome_index}" "${r1}" "${r2}" -t 8 > "${output}"
 
 ```
 
@@ -108,3 +108,35 @@ bwa mem -t 8 "${genome_index}" "${r1}" -2 "${r2}" > "${output}"
 
 ```
 
+### MarkDuplicates from Picard to remove PCR duplicates
+
+```bash
+#!/bin/bash
+#SBATCH -A naiss2023-5-461
+#SBATCH -p core -n 4
+#SBATCH -t 2:00:00
+#SBATCH -J MarkDuplicates
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+#SBATCH --output=mark_duplicates_%j.out
+#SBATCH --error=mark_duplicates_%j.err
+
+
+# Define input and output files
+input_bam="path/to/your/input.bam"
+output_bam="path/to/your/output.dedup.bam"
+metrics_file="path/to/your/metrics.txt"
+
+# Run Picard MarkDuplicates
+picard MarkDuplicates \
+    I="${input_bam}" \
+    O="${output_bam}" \
+    M="${metrics_file}" \
+    REMOVE_DUPLICATES=true \
+    CREATE_INDEX=true
+
+echo "MarkDuplicates completed successfully."
+
+
+
+```
