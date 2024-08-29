@@ -114,6 +114,37 @@ bwa mem "${genome_index}" "${r1}" "${r2}" -t 8 > "${output}"
 
 ```
 
+### From Sam to Bam 
+
+
+```bash
+#!/bin/bash
+#SBATCH -A naiss2023-5-461
+#SBATCH -p core -n 12
+#SBATCH -t 4-00:00:00
+#SBATCH -J SAMToBAM
+#SBATCH --mail-type=All
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+#SBATCH --array=1-7
+
+# Load necessary modules or set necessary environment variables here if needed (we have them in the conda env)
+
+filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_stb.txt)
+input_file="/proj/snic2022-23-541/Rohan/Analysis/BWA/${filename}.sam"
+output_file="/proj/snic2022-23-541/Rohan/Analysis/BAM/${filename}.bam"
+sorted_output_file="/proj/snic2022-23-541/Rohan/Analysis/BAM/${filename}.sorted.bam"
+
+# Convert SAM to BAM
+samtools view -bS $input_file > $output_file
+
+# Sort the BAM file
+samtools sort $output_file -o $sorted_output_file
+
+# Index the sorted BAM file if needed
+samtools index $sorted_output_file
+
+```
+
 ### MarkDuplicates from Picard to remove PCR duplicates
 
 ```bash
@@ -146,39 +177,6 @@ echo "MarkDuplicates completed successfully."
 
 
 ```
-
-### From Sam to Bam 
-
-
-```bash
-#!/bin/bash
-#SBATCH -A naiss2023-5-461
-#SBATCH -p core -n 12
-#SBATCH -t 4-00:00:00
-#SBATCH -J SAMToBAM
-#SBATCH --mail-type=All
-#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
-#SBATCH --array=1-7
-
-# Load necessary modules or set necessary environment variables here if needed (we have them in the conda env)
-
-filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_stb.txt)
-input_file="/proj/snic2022-23-541/Rohan/Analysis/BWA/${filename}.sam"
-output_file="/proj/snic2022-23-541/Rohan/Analysis/BAM/${filename}.bam"
-sorted_output_file="/proj/snic2022-23-541/Rohan/Analysis/BAM/${filename}.sorted.bam"
-
-# Convert SAM to BAM
-samtools view -bS $input_file > $output_file
-
-# Sort the BAM file
-samtools sort $output_file -o $sorted_output_file
-
-# Index the sorted BAM file if needed
-samtools index $sorted_output_file
-
-```
-
-
 
 
 
