@@ -142,5 +142,16 @@ echo "MarkDuplicates completed successfully."
 ```
 
 ```
+# Variant calling
 https://github.com/broadgsa/gatk/blob/master/doc_archive/methods/Calling_variants_in_RNAseq.md
+
+https://evomics.org/wp-content/uploads/2024/01/Variant-calling-Workshop-on-Genomics-2024-Cesky-Krumlov.pdf
+
+https://learn.gencore.bio.nyu.edu/variant-calling/
+
+https://qcb.ucla.edu/wp-content/uploads/sites/14/2020/03/VariantCallingWithGATK_WINTER2020.pdf
+
+https://nbisweden.github.io/workshop-ngsintro/2209/slide_vc.pdf
+
+https://nbisweden.github.io/workshop-ngsintro/2403/topics/vc/lab_vc.html
 ```
