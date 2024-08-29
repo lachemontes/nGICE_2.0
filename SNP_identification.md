@@ -74,8 +74,8 @@ bwa index ../../Data/Genome/VectorBase-66_CquinquefasciatusJHB2020_Genome_header
 #SBATCH --array=1-14
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
-#SBATCH --output=hisat_%A_%a.out
-#SBATCH --error=hisat_%A_%a.err
+#SBATCH --output=bwa_%A_%a.out
+#SBATCH --error=bwa_%A_%a.err
 
 
 # The programs are installed in Rohan env
@@ -91,8 +91,9 @@ genome_index="/proj/snic2022-23-541/Rohan/Data/Genome/Index/VectorBase-66_Cquinq
 sample=$(sed -n "${SLURM_ARRAY_TASK_ID} p" List.txt)
 
 # Define input files
-r1="${input_dir}/${sample}_R1_001_val_1.fq.gz"
-r2="${input_dir}/${sample}_R2_001_val_2.fq.gz"
+r1="${input_dir}/${sample}_R1.fastq"
+r2="${input_dir}/${sample}_R2.fastq"
+
 
 # Define output file
 output="${output_dir}/${sample}.sam"
