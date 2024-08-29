@@ -153,22 +153,19 @@ echo "MarkDuplicates completed successfully."
 ```bash
 #!/bin/bash
 #SBATCH -A naiss2023-5-461
-#SBATCH -p node
+#SBATCH -p core -n 12
 #SBATCH -t 4-00:00:00
 #SBATCH -J SAMToBAM
 #SBATCH --mail-type=All
 #SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
-#SBATCH --array=1-16
+#SBATCH --array=1-7
 
-# Load necessary modules or set necessary environment variables here if needed
+# Load necessary modules or set necessary environment variables here if needed (we have them in the conda env)
 
-module load bioinfo-tools
-module load samtools/1.9
-
-filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List.txt)
-input_file="${filename}.sam"
-output_file="/proj/naiss2023-23-109/Ticks/Bam/${filename}.bam"
-sorted_output_file="/proj/naiss2023-23-109/Ticks/Bam/${filename}.sorted.bam"
+filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_stb.txt)
+input_file="/proj/snic2022-23-541/Rohan/Analysis/BWA/${filename}.sam"
+output_file="/proj/snic2022-23-541/Rohan/Analysis/BAM/${filename}.bam"
+sorted_output_file="/proj/snic2022-23-541/Rohan/Analysis/BAM/${filename}.sorted.bam"
 
 # Convert SAM to BAM
 samtools view -bS $input_file > $output_file
