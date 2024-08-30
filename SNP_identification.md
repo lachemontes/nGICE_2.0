@@ -230,12 +230,6 @@ bcftools mpileup -O b -o "${output_file}" -f ../../Data/Genome/VectorBase-66_Cqu
 
 ````
 
-
-
-
-
-
-
 ```
 # Variant calling
 https://github.com/broadgsa/gatk/blob/master/doc_archive/methods/Calling_variants_in_RNAseq.md
@@ -249,4 +243,10 @@ https://qcb.ucla.edu/wp-content/uploads/sites/14/2020/03/VariantCallingWithGATK_
 https://nbisweden.github.io/workshop-ngsintro/2209/slide_vc.pdf
 
 https://nbisweden.github.io/workshop-ngsintro/2403/topics/vc/lab_vc.html
+
+
+**VIDEO**
+
+https://duckduckgo.com/?q=varuancalling&atb=v437-1&iax=videos&ia=videos&iai=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DmKqdfdtv0cI
+
 ```
