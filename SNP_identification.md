@@ -195,11 +195,27 @@ from `https://training.galaxyproject.org/training-material/topics/data-science/t
 Example:
 
 ```bash
-$ bcftools mpileup -O b -o results/bcf/SRR2584866_raw.bcf -f data/ref_genome/ecoli_rel606.fasta results/bam/SRR2584866.aligned.sorted.bam
+$ bcftools mpileup -O b -o "${output_file}" -f data/ref_genome/ecoli_rel606.fasta results/bam/SRR2584866.aligned.sorted.bam
 ````
 
 ```bash
+#!/bin/bash
+#SBATCH -A naiss2023-5-461
+#SBATCH -p core -n 12
+#SBATCH -t 2:00:00
+#SBATCH -J bcftools_mpileup
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+#SBATCH --output=mark_duplicates_%j.out
+#SBATCH --error=mark_duplicates_%j.err
+#SBATCH --array=1-7
 
+
+filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_md.txt)
+input_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/${filename}.md.bam"
+output_file="/proj/snic2022-23-541/Rohan/Analysis/BCFtools/${filename}.raw.bcf"
+
+bcftools mpileup -O b -o "${output_file}" -f /proj/snic2022-23-541/Rohan/Data/Genome/Index/VectorBase-66_CquinquefasciatusJHB2020_Genome_headers.fasta "${input_file}"
 
 ````
 
