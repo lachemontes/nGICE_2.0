@@ -188,8 +188,12 @@ gatk --java-options -Xmx7g MarkDuplicates \
     CREATE_INDEX=true
 
 echo "MarkDuplicates completed successfully."
+
+
+
+
 ```
-### Calculate the read coverage of positions in the genome
+### Calculate the read coverage of positions in the genome (Skiped)
 
 Do the first pass on variant calling by counting read coverage with bcftools. We will use the command mpileup. The flag -O b tells bcftools to generate a bcf format output file, -o specifies where to write the output file, and -f flags the path to the reference genome:
 from `https://training.galaxyproject.org/training-material/topics/data-science/tutorials/bash-variant-calling/tutorial.html`
@@ -197,41 +201,34 @@ from `https://training.galaxyproject.org/training-material/topics/data-science/t
 Example:
 
 ```bash
-$ bcftools mpileup -O b -o "${output_file}" -f data/ref_genome/ecoli_rel606.fasta results/bam/SRR2584866.aligned.sorted.bam
+bcftools mpileup -O b -o raw.bcf -f ../../Data/Genome/VectorBase-66_CquinquefasciatusJHB2020_Genome.fasta --threads 2 -q 20 -Q 30 ../MarkDuplicates/Molestus_1_paired_trimmed_pairs.sorted.md.bam
+
 ````
+
+**BCFtools** by uppmax, **via conda doesnt work
 
 ```bash
 #!/bin/bash
 #SBATCH -A naiss2023-5-461
 #SBATCH -p core -n 12
-#SBATCH -t 2:00:00
+#SBATCH -t 2-00:00:00
 #SBATCH -J bcftools_mpileup
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
-#SBATCH --output=mark_duplicates_%j.out
-#SBATCH --error=mark_duplicates_%j.err
+#SBATCH --output=BCF_tools_%j.out
+#SBATCH --error=BCF_tools_%j.err
 #SBATCH --array=1-7
 
+module load bioinfo-tools
+module load bcftools/1.9
 
 filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_md.txt)
 input_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/${filename}.md.bam"
 output_file="/proj/snic2022-23-541/Rohan/Analysis/BCFtools/${filename}.raw.bcf"
 
-bcftools mpileup -O b -o "${output_file}" -f /proj/snic2022-23-541/Rohan/Data/Genome/Index/VectorBase-66_CquinquefasciatusJHB2020_Genome_headers.fasta "${input_file}"
+bcftools mpileup -O b -o "${output_file}" -f ../../Data/Genome/VectorBase-66_CquinquefasciatusJHB2020_Genome.fasta "${input_file}"
 
 ````
-
-
-
-### Generate g.vcf files
-
-```bash
-gatk --java-options -Xmx7g HaplotypeCaller \
--R human_g1k_v37_chr2.fasta \
--ERC GVCF \
--I sample.bam \
--O sample.g.vcf
-```
 
 
 
