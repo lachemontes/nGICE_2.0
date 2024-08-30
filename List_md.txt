@@ -1,0 +1,7 @@
+Molestus_1_paired_trimmed_pairs.sorted
+Molestus_2_paired_trimmed_pairs.sorted
+Molestus_4_paired_trimmed_pairs.sorted
+Pipiens_1_paired_trimmed_pairs.sorted
+Pipiens_2_paired_trimmed_pairs.sorted
+Pipiens_3_paired_trimmed_pairs.sorted
+Pipiens_4_paired_trimmed_pairs.sorted
