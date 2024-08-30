@@ -151,6 +151,11 @@ samtools flagstat $sorted_output_file
 
 ### MarkDuplicates from Picard to remove PCR duplicates
 
+Sometimes the same DNA fragment is sequenced multiple times, which leads to multiple reads from the same fragment in the fastq file. This can occur due to PCR amplification in the library preparation, or if one read cluster is incorrectly detected as multiple clusters by the sequencing instrument. If a duplicated read contains a genetic variant, the ratio of the two alleles might be obscured, which can lead to incorrect genotyping. It is therefore recommended (in most cases) to mark duplicate reads so that they are counted as one during genotyping.
+from `https://nbisweden.github.io/workshop-ngsintro/2403/topics/vc/lab_vc.html#mark-duplicates`
+
+
+
 ```bash
 #!/bin/bash
 #SBATCH -A naiss2023-5-461
@@ -181,12 +186,17 @@ gatk --java-options -Xmx7g MarkDuplicates \
     CREATE_INDEX=true
 
 echo "MarkDuplicates completed successfully."
-
-
-
 ```
 
+### Generate g.vcf files
 
+```bash
+gatk --java-options -Xmx7g HaplotypeCaller \
+-R human_g1k_v37_chr2.fasta \
+-ERC GVCF \
+-I sample.bam \
+-O sample.g.vcf
+```
 
 
 
