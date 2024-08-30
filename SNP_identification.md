@@ -228,7 +228,37 @@ output_file="/proj/snic2022-23-541/Rohan/Analysis/BCFtools/${filename}.raw.bcf"
 
 bcftools mpileup -O b -o "${output_file}" -f ../../Data/Genome/VectorBase-66_CquinquefasciatusJHB2020_Genome.fasta "${input_file}"
 
-````
+```
+
+```bash
+
+#!/bin/bash
+#SBATCH -A naiss2023-5-461
+#SBATCH -p core -n 12
+#SBATCH -t 2-00:00:00
+#SBATCH -J bcftools_mpileup
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+#SBATCH --output=VCF_tools_%j.out
+#SBATCH --error=VCF_tools_%j.err
+#SBATCH --array=1-7
+
+module load bioinfo-tools
+module load bcftools/1.9
+
+filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_md.txt)
+input_file="/proj/snic2022-23-541/Rohan/Analysis/BCFtools/${filename}.raw.bcf"
+output_file="/proj/snic2022-23-541/Rohan/Analysis/VCF_files/${filename}.vcf"
+input_file2="/proj/snic2022-23-541/Rohan/Analysis/BCFtools/${filename}.vcf"
+output_file_final="/proj/snic2022-23-541/Rohan/Analysis/VCF_files/${filename}_final.vcf"
+
+bcftools call --ploidy 1 -m -v -o "${output_file}" "${input_file}"
+vcfutils.pl varFilter "${input_file2} > "${output_file_final}"
+
+```
+
+
+
 
 ```
 # Variant calling
