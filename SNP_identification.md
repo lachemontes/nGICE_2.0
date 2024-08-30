@@ -154,24 +154,28 @@ samtools flagstat $sorted_output_file
 ```bash
 #!/bin/bash
 #SBATCH -A naiss2023-5-461
-#SBATCH -p core -n 4
+#SBATCH -p core -n 12
 #SBATCH -t 2:00:00
 #SBATCH -J MarkDuplicates
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
 #SBATCH --output=mark_duplicates_%j.out
 #SBATCH --error=mark_duplicates_%j.err
+#SBATCH --array=1-7
 
 
 # Define input and output files
-input_bam="path/to/your/input.bam"
-output_bam="path/to/your/output.dedup.bam"
-metrics_file="path/to/your/metrics.txt"
+
+filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_md.txt)
+input_file="/proj/snic2022-23-541/Rohan/Analysis/BAM/${filename}.bam"
+output_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/${filename}.md"
+metrics_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/${filename}.md.metrics.txt"
+
 
 # Run Picard MarkDuplicates
-picard MarkDuplicates \
-    I="${input_bam}" \
-    O="${output_bam}" \
+gatk --java-options -Xmx7g MarkDuplicates \
+    I="${input_file}" \
+    O="${output_file}" \
     M="${metrics_file}" \
     REMOVE_DUPLICATES=true \
     CREATE_INDEX=true
@@ -181,7 +185,6 @@ echo "MarkDuplicates completed successfully."
 
 
 ```
-
 
 
 
