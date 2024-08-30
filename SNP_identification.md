@@ -187,6 +187,23 @@ gatk --java-options -Xmx7g MarkDuplicates \
 
 echo "MarkDuplicates completed successfully."
 ```
+### Calculate the read coverage of positions in the genome
+
+Do the first pass on variant calling by counting read coverage with bcftools. We will use the command mpileup. The flag -O b tells bcftools to generate a bcf format output file, -o specifies where to write the output file, and -f flags the path to the reference genome:
+from `https://training.galaxyproject.org/training-material/topics/data-science/tutorials/bash-variant-calling/tutorial.html`
+
+Example:
+
+```bash
+$ bcftools mpileup -O b -o results/bcf/SRR2584866_raw.bcf -f data/ref_genome/ecoli_rel606.fasta results/bam/SRR2584866.aligned.sorted.bam
+````
+
+```bash
+
+
+````
+
+
 
 ### Generate g.vcf files
 
