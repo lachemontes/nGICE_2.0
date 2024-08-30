@@ -23,6 +23,8 @@ conda install bioconda::bwa
 conda install bioconda::picard
 # Install BCF
 conda install bioconda::bcftools
+#libgsl.so.25 as requeried to run bcftools
+conda install -c conda-forge gsl
 # Install GATK4
 conda install bioconda::gatk4
 # Install samtools
