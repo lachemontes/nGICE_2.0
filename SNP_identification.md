@@ -32,6 +32,10 @@ conda install bioconda::samtools
 # Install VCF tools
 conda install bioconda::vcftools
 
+#
+conda install conda-forge::py-bgzip
+
+
 ```
 
 ## Data pre-processing
@@ -148,6 +152,15 @@ samtools index $sorted_output_file
 # statistics about the sorted bam file
 
 samtools flagstat $sorted_output_file
+
+# List all the sorted BAM files
+bam_files=$(ls *.sorted.bam)
+
+# Merge the BAM files
+samtools merge merged_output.bam $bam_files
+
+# Index the merged BAM file
+samtools index merged_output.bam
 
 ```
 
