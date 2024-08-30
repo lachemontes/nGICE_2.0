@@ -173,7 +173,7 @@ from `https://nbisweden.github.io/workshop-ngsintro/2403/topics/vc/lab_vc.html#m
 
 filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_md.txt)
 input_file="/proj/snic2022-23-541/Rohan/Analysis/BAM/${filename}.bam"
-output_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/${filename}.md"
+output_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/${filename}.md.bam"
 metrics_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/${filename}.md.metrics.txt"
 
 
