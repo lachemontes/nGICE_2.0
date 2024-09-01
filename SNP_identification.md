@@ -270,6 +270,14 @@ vcfutils.pl varFilter "${input_file2} > "${output_file_final}"
 
 ```
 
+#### Remove indels
+
+```bash
+
+```
+
+
+
 
 
 

@@ -1,0 +1,52 @@
+cd VCF_files/
+ 1018  ls
+ 1019  less Molestus_1_paired_trimmed_pairs.sorted.vcf
+ 1020  vi remove_idels.sh
+ 1021  chmod +x remove_idels.sh
+ 1022  ./remove_idels.sh
+ 1023  ls
+ 1024  rm test*
+ 1025  ls
+ 1026  bcftools merge -O v -o merged_snps.vcf *_snps.vcf
+ 1027  find -name *_snps.vcf --maxdepth 1 > list.txt
+ 1028  ls *_snps.vcf
+ 1029  ls *_snps.vcf > vcf_files.txt
+ 1030  cat vcf_files.txt
+ 1031  vi vcf_files.txt
+ 1032  bcftools concat -f vcf_files.txt -Oz > merged_snps.vcf
+ 1033  bcftools merge -help
+ 1034  more vcf_files.txt
+ 1035  vi compress.sh
+ 1036  sbatch compress.sh
+ 1037  ls
+ 1038  chmod +x compress.sh
+ 1039  ./compress.sh
+ 1040  conda activate Roham
+ 1041  conda activate Rohan
+ 1042  ls
+ 1043  rm *.tbi
+ 1044  ls
+ 1045  rm *.gz
+ 1046  ls
+ 1047  ./compress.sh
+ 1048  ls
+ 1049  less Pipiens_4_paired_trimmed_pairs.sorted_snps.vcf.gz
+ 1050  bcftools merge -l <(ls *.vcf.gz) -O v -o merged_output.vcf
+ 1051  bcftools merge -l <(ls *.vcf.gz) -O v -o merged_output.vcf
+ 1052  less Molestus_1_paired_trimmed_pairs.sorted_snps.vcf.gz
+ 1053  ls *.vcf.gz > vcf_files.txt
+ 1054  more vcf_files.txt
+ 1055  vi vcf_files.txt
+ 1056  bcftools merge -l vcf_files.txt -O v -o merged_output.vcf
+ 1057  ls
+ 1058  less merged_output.vcf
+ 1059  wc
+ 1060  wc merged_output.vcf
+ 1061  vi molestus.txt
+ 1062  vi pipiens.txt
+ 1063  vcftools --vcf merged_output.vcf --weir-fst-pop molestus.txt --weir-fst-pop pipiens.txt --out resultado_fst
+ 1064  grep "^#CHROM" merged_output.vcf
+ 1065  vi molestus.txt
+ 1066  vi pipiens.txt
+ 1067  vcftools --vcf merged_output.vcf --weir-fst-pop molestus.txt --weir-fst-pop pipiens.txt --out resultado_fst
+ 1068  history
