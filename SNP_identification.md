@@ -273,7 +273,13 @@ vcfutils.pl varFilter "${input_file2} > "${output_file_final}"
 #### Remove indels
 
 ```bash
+#!/bin/bash
 
+for vcf in *.vcf; do
+	echo "Procesando el archivo $vcf"
+	bcftools view -v snps -O v -o ${vcf%.vcf}_snps.vcf $vcf
+
+done
 ```
 
 
