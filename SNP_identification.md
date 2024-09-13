@@ -286,6 +286,38 @@ done
 `https://gatk.broadinstitute.org/hc/en-us/articles/360035531192-RNAseq-short-variant-discovery-SNPs-Indelsz`
 
 
+Since we learned that RNAseq its not the best strategy for variant calling but it is still possible we decided to give it a try.
+I will follow this tutorial "Tutorial: RNA-seq short variant calling using GATK4" available at `https://github.com/x-zang/tutorial-gatk4-rnaseq-germline-snps-indels`
+
+```bash
+wget https://github.com/broadinstitute/gatk/releases/download/4.1.8.0/gatk-4.1.8.0.zip
+unzip gatk-4.1.8.0.zip
+cd gatk-4.1.8.0
+```
+
+## Mapping with STAR
+
+### Create genome index
+```bash
+
+#!/bin/sh
+#SBATCH -A naiss2023-5-461
+#SBATCH -p core -n 12
+#SBATCH -t 5-00:00:00
+#SBATCH -J Genome_Index_node
+#SBATCH --mail-type=all
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+
+# Module load
+module load bioinfo-tools star/2.7.9a
+
+
+#Genome Index
+
+STAR --runThreadN 60 --runMode genomeGenerate --genomeDir /proj/snic2022-23-541/Ticks_project/Analysis/Trinity/STAR/Genome_Index_Cqui --genomeFastaFiles /proj/snic2022-23-541/Rohan/Data/Genom
+e/VectorBase-66_CquinquefasciatusJHB2020_Genome_headers.fasta --limitGenomeGenerateRAM 142967046410 --genomeSAindexNbases 13
+
+```
 
 
 
