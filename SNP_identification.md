@@ -349,10 +349,53 @@ _3_paired_trimmed_pairs_R2.fastq -outSAMtype BAM SortedByCoordinate --outFilterS
 
 ```
 
+```
+ finishedjobinfo -j 50307420
+2024-09-17 15:14:55 jobid=50307420 jobstate=COMPLETED username=zaidemo account=naiss2023-5-461 nodes=r169 procs=16 partition=core qos=normal jobname=STAR_Mapping maxmemory_in_GiB=8.0 maxmemory_node=r169 timelimit=4-00:00:00 submit_time=2024-09-17T14:58:43 start_time=2024-09-17T15:00:23 end_time=2024-09-17T15:14:55 runtime=00:14:32 margin=3-23:45:28 queuetime=00:01:40
+```
 
+### Mapping by reads Indv
 
+```bash
+#!/bin/sh
+#SBATCH -A naiss2023-5-461
+#SBATCH -p core -n 16
+#SBATCH -t 2-00:00:00
+#SBATCH -J STAR_Mapping
+#SBATCH --mail-type=all
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
 
+# Module load
+module load bioinfo-tools star/2.7.9a
 
+# Function to run STAR for each library
+run_star() {
+  local r1=$1
+  local r2=$2
+  local output_prefix=$3
+
+  STAR --runThreadN 16 \
+       --genomeDir /proj/snic2022-23-541/Rohan/Analysis/STAR/Genome_Index_Cqui \
+       --readFilesIn $r1 $r2 \
+       --outFileNamePrefix $output_prefix \
+       --limitBAMsortRAM 25965203113 \
+       --outSAMattrRGline ID:$output_prefix \
+       --outSAMtype BAM SortedByCoordinate \
+       --outFilterScoreMinOverLread 0.1 \
+       --outFilterMatchNminOverLread 0.1
+}
+
+# Base path to the RNAseq reads
+READS_PATH="/proj/snic2022-23-541/Rohan/Data/RNAseq"
+
+# Call the function for each set of paired files with path
+run_star $READS_PATH/Molestus_1_paired_trimmed_pairs_R1.fastq $READS_PATH/Molestus_1_paired_trimmed_pairs_R2.fastq Molestus_1
+run_star $READS_PATH/Molestus_2_paired_trimmed_pairs_R1.fastq $READS_PATH/Molestus_2_paired_trimmed_pairs_R2.fastq Molestus_2
+run_star $READS_PATH/Molestus_4_paired_trimmed_pairs_R1.fastq $READS_PATH/Molestus_4_paired_trimmed_pairs_R2.fastq Molestus_4
+run_star $READS_PATH/Pipiens_1_paired_trimmed_pairs_R1.fastq $READS_PATH/Pipiens_1_paired_trimmed_pairs_R2.fastq Pipiens_1
+run_star $READS_PATH/Pipiens_2_paired_trimmed_pairs_R1.fastq $READS_PATH/Pipiens_2_paired_trimmed_pairs_R2.fastq Pipiens_2
+run_star $READS_PATH/Pipiens_3_paired_trimmed_pairs_R1.fastq $READS_PATH/Pipiens_3_paired_trimmed_pairs_R2.fastq Pipiens_3
+```
 
 
 
