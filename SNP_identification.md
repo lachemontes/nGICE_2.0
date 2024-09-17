@@ -305,8 +305,6 @@ I will follow this tutorial "Tutorial: RNA-seq short variant calling using GATK4
 
 
 
-
-
 ```bash
 wget https://github.com/broadinstitute/gatk/releases/download/4.1.8.0/gatk-4.1.8.0.zip
 unzip gatk-4.1.8.0.zip
