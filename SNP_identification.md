@@ -289,6 +289,24 @@ done
 Since we learned that RNAseq its not the best strategy for variant calling but it is still possible we decided to give it a try.
 I will follow this tutorial "Tutorial: RNA-seq short variant calling using GATK4" available at `https://github.com/x-zang/tutorial-gatk4-rnaseq-germline-snps-indels`
 
+** Some reasons why is not recommended RNAseq for variant calling**
+
+
+**Coverage and Bias:** RNA-seq data is inherently biased toward the expression levels of genes. Highly expressed regions may have high coverage, while lowly expressed or non-expressed regions may have low or no coverage, leading to uneven and non-uniform coverage across the genome.
+
+**Splicing and Transcript Variability:** RNA-seq captures only the exonic regions of the genome, missing out on intronic and intergenic variants. Additionally, alternative splicing can complicate the alignment of reads, making it challenging to determine which transcript a variant belongs to.
+
+**Allele-Specific Expression:** Some variants may appear homozygous due to allele-specific expression when in fact they are heterozygous. This can lead to incorrect variant calling.
+
+**Post-Transcriptional Modifications:** RNA is subject to post-transcriptional modifications such as RNA editing, which can lead to false positives in variant calling as these modifications can be mistaken for genomic variants.
+
+**Quality of Reads:** RNA-seq libraries can have high error rates or biases due to reverse transcription, PCR amplification, and sequencing errors, which can compromise the accuracy of variant detection.
+
+
+
+
+
+
 ```bash
 wget https://github.com/broadinstitute/gatk/releases/download/4.1.8.0/gatk-4.1.8.0.zip
 unzip gatk-4.1.8.0.zip
