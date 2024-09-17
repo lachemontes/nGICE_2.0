@@ -320,7 +320,6 @@ e/VectorBase-66_CquinquefasciatusJHB2020_Genome_headers.fasta --limitGenomeGener
 ```
 
 ```bash
-
 #!/bin/sh
 #SBATCH -A naiss2023-5-461
 #SBATCH -p core -n 16
@@ -337,15 +336,19 @@ module load bioinfo-tools star/2.7.9a
 
 
 # Run the STAR command with the modified options
+STAR --runThreadN 20 --genomeDir /proj/snic2022-23-541/Rohan/Analysis/STAR/Genome_Index_Cqui --readFilesIn Molestus_1_paired_trimm
+ed_pairs_R1.fastq,Molestus_1_paired_trimmed_pairs_R2.fastq,Molestus_2_paired_trimmed_pairs_R1.fastq,Molestus_2_paired_trimmed_pair
+s_R2.fastq,Molestus_4_paired_trimmed_pairs_R1.fastq,Molestus_4_paired_trimmed_pairs_R2.fastq,Pipiens_1_paired_trimmed_pairs_R1.fas
+tq,Pipiens_1_paired_trimmed_pairs_R2.fastq,Pipiens_2_paired_trimmed_pairs_R1.fastq,Pipiens_2_paired_trimmed_pairs_R2.fastq,Pipiens
+_3_paired_trimmed_pairs_R1.fastq,Pipiens_3_paired_trimmed_pairs_R2.fastq --limitBAMsortRAM 25965203113 -c  --outSAMattrRGline ID:M
+olestus_1_paired_trimmed_pairs_R1.fastq, ID:Molestus_1_paired_trimmed_pairs_R2.fastq, ID:Molestus_2_paired_trimmed_pairs_R1.fastq,
+ ID:Molestus_2_paired_trimmed_pairs_R2.fastq, ID:Molestus_4_paired_trimmed_pairs_R1.fastq, ID:Molestus_4_paired_trimmed_pairs_R2.f
+astq, ID:Pipiens_1_paired_trimmed_pairs_R1.fastq, ID:Pipiens_1_paired_trimmed_pairs_R2.fastq, ID:Pipiens_2_paired_trimmed_pairs_R1
+.fastq, ID:Pipiens_2_paired_trimmed_pairs_R2.fastq, ID:Pipiens_3_paired_trimmed_pairs_R1.fastq, ID:Pipiens_3_paired_trimmed_pairs_
+R2.fastq -outSAMtype BAM SortedByCoordinate --outSAMtype BAM SortedByCoordinate --outFilterScoreMinOverLread 0.1 --outFilterMatchN
+minOverLread 0.1
 
-# Run the STAR command with the modified options
-STAR --runThreadN 20 --genomeDir /proj/snic2022-23-541/Rohan/Analysis/STAR/Genome_Index_Cqui --readFilesIn Molestus_1_paired_trimmed_pairs_R1.fastq,Molestus_1_paired_trimmed_pairs_R2.fastq,Mo
-lestus_2_paired_trimmed_pairs_R1.fastq,Molestus_2_paired_trimmed_pairs_R2.fastq,Molestus_4_paired_trimmed_pairs_R1.fastq,Molestus_4_paired_trimmed_pairs_R2.fastq,Pipiens_1_paired_trimmed_pair
-s_R1.fastq,Pipiens_1_paired_trimmed_pairs_R2.fastq,Pipiens_2_paired_trimmed_pairs_R1.fastq,Pipiens_2_paired_trimmed_pairs_R2.fastq,Pipiens_3_paired_trimmed_pairs_R1.fastq,Pipiens_3_paired_tri
-mmed_pairs_R2.fastq --limitBAMsortRAM 25965203113 -c  --outSAMattrRGline ID:Molestus_1_paired_trimmed_pairs_R1.fastq, ID:Molestus_1_paired_trimmed_pairs_R2.fastq, ID:Molestus_2_paired_trimmed
-_pairs_R1.fastq, ID:Molestus_2_paired_trimmed_pairs_R2.fastq, ID:Molestus_4_paired_trimmed_pairs_R1.fastq, ID:Molestus_4_paired_trimmed_pairs_R2.fastq, ID:Pipiens_1_paired_trimmed_pairs_R1.fa
-stq, ID:Pipiens_1_paired_trimmed_pairs_R2.fastq, ID:Pipiens_2_paired_trimmed_pairs_R1.fastq, ID:Pipiens_2_paired_trimmed_pairs_R2.fastq, ID:Pipiens_3_paired_trimmed_pairs_R1.fastq, ID:Pipiens
-_3_paired_trimmed_pairs_R2.fastq -outSAMtype BAM SortedByCoordinate --outFilterScoreMinOverLread 0.1 --outFilterMatchNminOverLread 0.1
+
 
 ```
 
@@ -396,6 +399,27 @@ run_star $READS_PATH/Pipiens_1_paired_trimmed_pairs_R1.fastq $READS_PATH/Pipiens
 run_star $READS_PATH/Pipiens_2_paired_trimmed_pairs_R1.fastq $READS_PATH/Pipiens_2_paired_trimmed_pairs_R2.fastq Pipiens_2
 run_star $READS_PATH/Pipiens_3_paired_trimmed_pairs_R1.fastq $READS_PATH/Pipiens_3_paired_trimmed_pairs_R2.fastq Pipiens_3
 ```
+
+
+## From sam To bam
+
+### From Sam to Bam 
+
+
+```bash
+#!/bin/bash
+#SBATCH -A naiss2023-5-461
+#SBATCH -p core -n 12
+#SBATCH -t 4-00:00:00
+#SBATCH -J SAMToBAM
+#SBATCH --mail-type=All
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+#SBATCH --array=1-7
+
+# Load necessary modules or set necessary environment variables here if needed (we have them in the conda env)
+
+
+# /proj/snic2022-23-541/Rohan/Data/RNAseq/Indiv
 
 
 
