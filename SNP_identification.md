@@ -417,25 +417,53 @@ run_star $READS_PATH/Pipiens_3_paired_trimmed_pairs_R1.fastq $READS_PATH/Pipiens
 ```
 
 
-## From sam To bam
+## Remove duplicated
 
-### From Sam to Bam 
-
+`/proj/snic2022-23-541/Rohan/Data/RNAseq/Aligned.sortedByCoord.out.bam`
 
 ```bash
 #!/bin/bash
 #SBATCH -A naiss2023-5-461
 #SBATCH -p core -n 12
-#SBATCH -t 4-00:00:00
-#SBATCH -J SAMToBAM
-#SBATCH --mail-type=All
+#SBATCH -t 2:00:00
+#SBATCH -J MarkDuplicates
+#SBATCH --mail-type=FAIL
 #SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+#SBATCH --output=mark_duplicates_%j.out
+#SBATCH --error=mark_duplicates_%j.err
 #SBATCH --array=1-7
 
-# Load necessary modules or set necessary environment variables here if needed (we have them in the conda env)
+
+# Define input and output files
+
+filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_md_2.txt)
+input_file="/proj/snic2022-23-541/Rohan/Data/RNAseq/Indiv/${filename}.bam"
+output_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/Run_2/${filename}.md.bam"
+metrics_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/Run_2/${filename}.md.metrics.txt"
 
 
-# /proj/snic2022-23-541/Rohan/Data/RNAseq/Indiv
+# Run Picard MarkDuplicates
+gatk --java-options -Xmx7g MarkDuplicates \
+    I="${input_file}" \
+    O="${output_file}" \
+    M="${metrics_file}" \
+    REMOVE_DUPLICATES=true \
+    CREATE_INDEX=true
+
+echo "MarkDuplicates completed successfully."
+
+
+
+
+```
+
+
+
+
+
+
+
+
 
 
 

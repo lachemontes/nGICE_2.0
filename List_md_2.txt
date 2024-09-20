@@ -1,0 +1,7 @@
+Aligned.sortedByCoord.out
+Molestus_1Aligned.sortedByCoord.out
+Molestus_2Aligned.sortedByCoord.out
+Molestus_4Aligned.sortedByCoord.out
+Pipiens_1Aligned.sortedByCoord.out
+Pipiens_2Aligned.sortedByCoord.out
+Pipiens_3Aligned.sortedByCoord.out
