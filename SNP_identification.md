@@ -443,7 +443,7 @@ metrics_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/Run_2/${filena
 
 
 # Run Picard MarkDuplicates
-gatk --java-options -Xmx7g MarkDuplicates \
+picard MarkDuplicates \
     I="${input_file}" \
     O="${output_file}" \
     M="${metrics_file}" \
@@ -454,6 +454,61 @@ echo "MarkDuplicates completed successfully."
 
 
 
+```
+
+### Create an GATK genome index
+
+```bash
+gatk CreateSequenceDictionary -R VectorBase-66_CquinquefasciatusJHB2020_Genome_headers.fasta
+```
+### Split'N'Trim and reassign mapping qualities
+
+```bash
+# command line in the git hub, but doesnt work 
+java -jar GenomeAnalysisTK.jar -T SplitNCigarReads -R ref.fasta -I dedupped.bam -o split.bam -rf ReassignOneMappingQuality -RMQF 255 -RMQT 60 -U ALLOW_N_CIGAR_READS
+
+```bash
+#Test
+# This worked!
+
+gatk SplitNCigarReads -R ../../../Data/Genome/VectorBase-66_CquinquefasciatusJHB2020_Genome_headers.fasta -I Molestus_1Aligned.sortedByCoord.out.md.bam -O split.bam
+
+```
+
+### Script for SplitNcigars
+
+```bash
+#!/bin/bash
+#SBATCH -A naiss2023-5-461
+#SBATCH -p core -n 12
+#SBATCH -t 2:00:00
+#SBATCH -J MarkDuplicates
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+#SBATCH --output=mark_duplicates_%j.out
+#SBATCH --error=mark_duplicates_%j.err
+#SBATCH --array=1-7
+
+
+# Define input and output files
+
+filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_md_2.txt)
+input_file="/proj/snic2022-23-541/Rohan/Data/RNAseq/Indiv/${filename}.bam"
+output_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/Run_2/${filename}.md.bam"
+metrics_file="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/Run_2/${filename}.md.metrics.txt"
+
+
+# Run Picard MarkDuplicates
+picard MarkDuplicates \
+    I="${input_file}" \
+    O="${output_file}" \
+    M="${metrics_file}" \
+    REMOVE_DUPLICATES=true \
+    CREATE_INDEX=true
+
+echo "MarkDuplicates completed successfully."
+
+```
 
 ```
 
