@@ -1,0 +1,6 @@
+Molestus_1Aligned.sortedByCoord.out.md_split.bam
+Molestus_2Aligned.sortedByCoord.out.md_split.bam
+Molestus_4Aligned.sortedByCoord.out.md_split.bam
+Pipiens_1Aligned.sortedByCoord.out.md_split.bam
+Pipiens_2Aligned.sortedByCoord.out.md_split.bam
+Pipiens_3Aligned.sortedByCoord.out.md_split.bam
