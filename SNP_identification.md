@@ -510,6 +510,42 @@ echo "MarkDuplicates completed successfully."
 
 ```
 
+### Variant calling with gatk and HaplotypeCaller
+
+```bash
+#!/bin/bash
+#SBATCH -A naiss2023-5-461
+#SBATCH -p core -n 12
+#SBATCH -t 4-00:00:00
+#SBATCH -J HaplotypeCaller
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zaide.montes_ortiz@biol.lu.se
+#SBATCH --output=haplotypecaller_%j.out
+#SBATCH --error=haplotypecaller_%j.err
+#SBATCH --array=1-6
+
+# Load necessary modules
+module load bioinfo-tools
+module load GATK/4.0.12.0  # Adjust version based on your environment
+
+# Define input and output paths
+input_dir="/proj/snic2022-23-541/Rohan/Analysis/MarkDuplicates/Run_2"
+reference="/proj/snic2022-23-541/Rohan/Data/Genome/VectorBase-66_CquinquefasciatusJHB2020_Genome_headers.fasta"
+
+# Read the file names from a list
+filename=$(sed -n "${SLURM_ARRAY_TASK_ID}p" List_split_bams.txt)
+input_file="${input_dir}/${filename}"
+# Define output file name
+output_file="${input_dir}/${filename%.bam}.vcf"
+
+# Run GATK HaplotypeCaller
+gatk HaplotypeCaller \
+    -R "$reference" \
+    -I "$input_file" \
+    -O "$output_file"
+
+echo "HaplotypeCaller completed successfully for ${filename}."
+
 ```
 
 
