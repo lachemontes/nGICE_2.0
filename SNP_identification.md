@@ -548,17 +548,6 @@ echo "HaplotypeCaller completed successfully for ${filename}."
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ```
 # Variant calling
 https://github.com/broadgsa/gatk/blob/master/doc_archive/methods/Calling_variants_in_RNAseq.md
