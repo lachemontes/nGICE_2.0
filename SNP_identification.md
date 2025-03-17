@@ -206,7 +206,7 @@ echo "MarkDuplicates completed successfully."
 
 
 ```
-### Calculate the read coverage of positions in the genome (Skiped)
+### Calculate the read coverage of positions in the genome (done)
 
 Do the first pass on variant calling by counting read coverage with bcftools. We will use the command mpileup. The flag -O b tells bcftools to generate a bcf format output file, -o specifies where to write the output file, and -f flags the path to the reference genome:
 from `https://training.galaxyproject.org/training-material/topics/data-science/tutorials/bash-variant-calling/tutorial.html`
@@ -242,6 +242,52 @@ output_file="/proj/snic2022-23-541/Rohan/Analysis/BCFtools/${filename}.raw.bcf"
 bcftools mpileup -O b -o "${output_file}" -f ../../Data/Genome/VectorBase-66_CquinquefasciatusJHB2020_Genome.fasta "${input_file}"
 
 ```
+
+### To extract the info from the BCF file
+
+
+```
+bcftools view SRR2584866_raw.bcf -o SRR2584866_raw.vcf
+
+bcftools view SRR2584866_raw.bcf | less -S
+
+bcftools query -f '%CHROM\t%POS\t%DP\n' merged_output.md.bam.raw.bcf > coverage_depth.txt
+
+grep "CM027410.1" coverage_depth.txt > chr_CM027410.1.txt
+grep "CM027411.1" coverage_depth.txt > chr_CM027411.1.txt
+grep "CM027411.1" coverage_depth.txt > chr_CM027412.1.txt
+
+```
+
+```python
+
+import numpy as np
+
+# Define the file path
+file_path = "your_file.txt"  # Change this to your actual file name
+
+# Initialize a list to store column 3 values
+depths = []
+
+# Read the file and extract column 3 values
+with open(file_path, "r") as file:
+    for line in file:
+        parts = line.strip().split("\t")  # Assuming tab-separated values
+        depths.append(int(parts[2]))  # Convert to integer and store
+
+# Compute min, max, and average values
+min_value = min(depths)
+max_value = max(depths)
+average_value = np.mean(depths)
+
+# Print the results
+print(f"Min Value: {min_value}")
+print(f"Max Value: {max_value}")
+print(f"Average Value: {average_value:.2f}")
+
+```
+
+
 
 ```bash
 
